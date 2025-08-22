@@ -1,0 +1,41 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int[] copyNums = nums.clone();
+        int[] sum = findSum(copyNums, target);
+        int[] result = new int[] {0, 0};
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < nums.length; j++) {
+                if (sum[i] == nums[j]){
+                    if (i == 1 && result[0] == j) {
+                        continue;
+                    }
+                    result[i] = j;
+                }
+            }
+        }
+        Arrays.sort(result);
+        
+        return result;
+    }
+
+    public int[] findSum (int[] nums, int target) {
+        Arrays.sort(nums);
+        int length = nums.length;
+        int i = 0;
+        int j = length - 1;
+        while (i < j) {
+            if (nums[i] + nums[j] == target) {
+                return new int[]{nums[i], nums[j]};
+            }
+
+            if (nums[i] + nums[j] > target) {
+                j--;
+                continue;
+            } else {
+                i++;
+                continue;
+            }
+        }
+        return new int[]{0, 0};
+    }
+}
