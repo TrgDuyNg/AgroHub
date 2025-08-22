@@ -1,0 +1,40 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int sLength = s.length();
+        int tLength = t.length();
+
+        if (sLength != tLength)
+            return false;
+
+        Map<Character, Integer> freqS = countCharFrequency(s, sLength);
+        Map<Character, Integer> freqT = countCharFrequency(t, tLength);
+
+        return isSimilar(freqS, freqT) && isEqual(freqS, freqT);
+    }
+
+    public Map<Character, Integer> countCharFrequency(String s, int length) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        }
+        return freq;
+    }
+
+    public boolean isSimilar(Map<Character, Integer> freqS, Map<Character, Integer> freqT) {
+        for (Character sKey : freqS.keySet()) {
+            if (!freqT.containsKey(sKey)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isEqual(Map<Character, Integer> freqS, Map<Character, Integer> freqT) {
+        for (Character sKey : freqS.keySet()) {
+            if (!freqS.get(sKey).equals(freqT.get(sKey))) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
